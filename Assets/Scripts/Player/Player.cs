@@ -7,14 +7,14 @@ public class Player : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField]
-    private int _heartPoint;
+    public float _health = 100;
     public bool IsDead{get; private set;} = false;
     public bool IsStunned{get; private set;} = false;
     public void TakeDamage(int damage)
     {
-        _heartPoint -= damage;
-        if(_heartPoint > 0) return;
-        _heartPoint = 0;
+        _health -= damage;
+        if(_health > 0) return;
+        _health = 0;
         IsDead = true;
     }
     public void Stun(float duration)
@@ -31,6 +31,16 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             Stun(3f);
+        }
+    }
+    public float GetHealth() => _health;
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag(Constant.EnemyBulletTag))
+        {
+            TakeDamage(10);
+            Debug.Log($"Player health{GetHealth()}");
+            Destroy(other.gameObject);
         }
     }
 }

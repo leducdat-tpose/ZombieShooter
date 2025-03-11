@@ -8,7 +8,10 @@ public class Monster : MonoBehaviour
     protected MonsterData monsterData;
     protected float currentHealth;
     protected Transform player;
-    protected Rigidbody2D _rigid;
+    protected Rigidbody2D rigid;
+
+    protected float currentAttackCoolDown =0f;
+
     protected enum MonsterState{
         Idle,
         Chase,
@@ -17,7 +20,7 @@ public class Monster : MonoBehaviour
     }
     protected MonsterState currentState;
     private void Awake() {
-        _rigid = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
     public virtual void Initialise(MonsterData monsterData, Transform playerTransform)
     {
@@ -25,7 +28,7 @@ public class Monster : MonoBehaviour
         this.player = playerTransform;
         currentState = MonsterState.Idle;
     }
-    private void Update() {
+    protected virtual void Update() {
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -67,7 +70,6 @@ public class Monster : MonoBehaviour
             ChangeState(MonsterState.Idle);
             return;
         }
-        // RotateTowardTarget();
     }
     protected virtual void AttackBehaviour()
     {
@@ -99,6 +101,10 @@ public class Monster : MonoBehaviour
     protected virtual void Move()
     {
         Vector2 targetVelocity = (player.position - transform.position).normalized * monsterData.MoveSpeed;
-        _rigid.velocity = targetVelocity;
+        rigid.velocity = targetVelocity;
+    }
+    protected virtual void Attack()
+    {
+
     }
 }
