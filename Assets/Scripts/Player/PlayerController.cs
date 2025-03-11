@@ -31,10 +31,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Update() {
         GetInput();
-        if(Input.GetMouseButtonDown(0))
-        {
-            Debug.Log($"Aim direction: {_aimDirection}");
-        }
     }
     private void FixedUpdate() {
         MovePlayer();
@@ -43,8 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         _targetVelocity = _moveInput*_moveSpeed;
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector3 mousePosition = Constant.GetMousePosition(Camera.main);
         _aimDirection = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y).normalized;
     }
     private void MovePlayer()

@@ -101,7 +101,7 @@ public class Monster : MonoBehaviour
     protected virtual void Move()
     {
         Vector2 targetVelocity = (player.position - transform.position).normalized * monsterData.MoveSpeed;
-        rigid.velocity = targetVelocity;
+        rigid.MovePosition(rigid.position + targetVelocity*Time.fixedDeltaTime);
     }
     protected virtual void Attack()
     {

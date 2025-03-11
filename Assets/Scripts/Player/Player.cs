@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
         if(other.CompareTag(Constant.EnemyBulletTag))
         {
             TakeDamage(10);
-            Debug.Log($"Player health{GetHealth()}");
             Destroy(other.gameObject);
         }
     }

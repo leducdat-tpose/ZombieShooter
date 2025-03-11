@@ -24,4 +24,7 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSecondsRealtime(3f);
         Destroy(this.gameObject);
     }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("StaticObject")) Destroy(this.gameObject);
+    }
 }

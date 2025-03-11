@@ -6,17 +6,18 @@ TagManager:
   tags:
   - Monster
   - EnemyBullet
+  - StaticObject
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PlayerHitbox
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Monster
+  - Obstacle
+  - Projectile
   - 
   - 
   - 
