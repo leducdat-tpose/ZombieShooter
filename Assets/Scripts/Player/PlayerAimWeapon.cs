@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform _aimTransform;
     private Vector3 _mousePosition;
+    private Weapon _weapon;
     private void Awake() {
         _aimTransform = transform.Find("Aim");
     }
+    private void Start() {
+        _weapon = _aimTransform.GetComponentInChildren<Weapon>();
+        _weapon.Initialise();
+    }
     private void Update() {
-        _mousePosition = Constant.GetMousePosition(Camera.main);
+        _mousePosition = KeyboardWeaponInput.GetMousePosition(Camera.main);
         HandleAiming();
+        HandleShooting();
     }
     private void HandleAiming()
     {
@@ -31,9 +38,10 @@ public class PlayerAimWeapon : MonoBehaviour
 
     private void HandleShooting()
     {
+        _weapon.HandleInput();
         if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Shoot");
+            Debug.Log($"mouse position:{KeyboardWeaponInput.GetMousePosition(Camera.main)}");
         }
     }
 }

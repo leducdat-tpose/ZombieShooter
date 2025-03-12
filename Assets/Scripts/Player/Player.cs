@@ -7,15 +7,27 @@ public class Player : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField]
-    public float _health = 100;
+    private float _health = 100;
+    [SerializeField]
+    private float _invincibleTime = 2f;
+    public bool IsInvincible{get; private set;} = false;
     public bool IsDead{get; private set;} = false;
     public bool IsStunned{get; private set;} = false;
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
+        if(IsInvincible || IsDead) return;
+        Debug.Log("take damage");
         _health -= damage;
+        StartCoroutine(InvincibleCoroutine());
         if(_health > 0) return;
         _health = 0;
         IsDead = true;
+    }
+    private IEnumerator InvincibleCoroutine()
+    {
+        IsInvincible = true;
+        yield return new WaitForSecondsRealtime(_invincibleTime);
+        IsInvincible = false;
     }
     public void Stun(float duration)
     {

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         _targetVelocity = _moveInput*_moveSpeed;
-        Vector3 mousePosition = Constant.GetMousePosition(Camera.main);
+        Vector3 mousePosition = KeyboardWeaponInput.GetMousePosition(Camera.main);
         _aimDirection = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y).normalized;
     }
     private void MovePlayer()

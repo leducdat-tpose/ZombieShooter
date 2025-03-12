@@ -77,7 +77,7 @@ public class Monster : MonoBehaviour
     }
     protected virtual void DeadBehaviour()
     {
-
+        Destroy(this.gameObject);
     }
 
     public virtual void TakeDamage(float damage)

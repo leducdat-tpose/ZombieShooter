@@ -8,7 +8,7 @@ public class Playerhitbox : MonoBehaviour
     private void Awake() {
         _player = transform.root.GetComponent<Player>();
     }
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other) {
         if(other.CompareTag(Constant.MonsterTag))
         {
             _player.TakeDamage(10);
