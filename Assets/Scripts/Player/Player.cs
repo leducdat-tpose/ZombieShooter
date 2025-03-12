@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private float _health = 100;
     [SerializeField]
     private float _invincibleTime = 2f;
+    public Inventory Inventory{get; private set;} = new Inventory();
     public bool IsInvincible{get; private set;} = false;
     public bool IsDead{get; private set;} = false;
     public bool IsStunned{get; private set;} = false;
@@ -43,6 +44,13 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             Stun(3f);
+        }
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            foreach(KeyValuePair<ItemData, int> keyValuePair in Inventory.GetData())
+            {
+                Debug.Log($"Item data: {keyValuePair.Key}, item name: {keyValuePair.Key.ItemName}, amount: {keyValuePair.Value}");
+            }
         }
     }
     public float GetHealth() => _health;

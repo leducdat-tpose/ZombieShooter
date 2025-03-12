@@ -39,9 +39,5 @@ public class PlayerAimWeapon : MonoBehaviour
     private void HandleShooting()
     {
         _weapon.HandleInput();
-        if(Input.GetMouseButtonDown(0))
-        {
-            Debug.Log($"mouse position:{KeyboardWeaponInput.GetMousePosition(Camera.main)}");
-        }
     }
 }

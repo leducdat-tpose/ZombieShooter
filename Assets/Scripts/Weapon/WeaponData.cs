@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName ="WeaponData", menuName ="ScriptableObject/Weapon Data")]
-public class WeaponData : ScriptableObject
+[CreateAssetMenu(fileName ="WeaponData", menuName ="ItemData/Weapon Data")]
+public class WeaponData : ItemData
 {
-    public string WeaponName;
     public GameObject WeaponPrefab;
     public GameObject ProjectilePrefab;
     public float Damage;
