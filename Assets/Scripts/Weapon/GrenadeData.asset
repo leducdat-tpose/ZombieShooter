@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 841970e08b4b4ee449a146b3824cb688, type: 3}
-  m_Name: AssaultRifle
+  m_Name: GrenadeData
   m_EditorClassIdentifier: 
-  ItemName: AssaultRifle
+  ItemName: Grenade
+  Type: 0
   WeaponPrefab: {fileID: 7711735186002192090, guid: a2d236d42dd27a04189b91fcc0cdbdde, type: 3}
-  ProjectilePrefab: {fileID: 7363443071955842877, guid: 44bfea75fc03a0e4b8b4fc48d35bcb8a, type: 3}
-  Damage: 10
-  FireRate: 4
+  ProjectilePrefab: {fileID: 4905291105151629801, guid: de33332f6702627439b90759a60d91ab, type: 3}
+  Damage: 0
+  FireRate: 0.5
   ReloadDuration: 2
-  AmmoCapacityPerMagazine: 10
+  AmmoCapacityPerMagazine: 1
