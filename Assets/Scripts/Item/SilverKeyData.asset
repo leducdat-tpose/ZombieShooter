@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809b15e6813bb1e4d8cd1133a84e30d4, type: 3}
   m_Name: SilverKeyData
   m_EditorClassIdentifier: 
-  ItemName: SilverKey
+  ItemName: SilverData
   Type: 1
+  Sprite: {fileID: -255990352, guid: 1391403290f6d3048b33db1a34cf8bb6, type: 3}

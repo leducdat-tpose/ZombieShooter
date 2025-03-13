@@ -109,10 +109,4 @@ public class ParabolicProjectile : Projectile
     protected override void OnHit(Collider2D other)
     {
     }
-
-    private void HandleProjectilePath()
-    {
-        
-    }
-
 }

@@ -18,7 +18,7 @@ public class Inventory
         }
         _inventory[item] += amount;
     }
-    public int UseItem(ItemData item, int amount)
+    public int UseItem(ItemData item, int amount = 1)
     {
         if(!HaveThisItem(item)) return 0;
         int taken = 0;

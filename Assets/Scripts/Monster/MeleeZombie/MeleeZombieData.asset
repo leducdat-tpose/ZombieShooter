@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: c28a0b6e9d09d1445b138b05c982d709, type: 3}
   m_Name: MeleeZombieData
-  m_EditorClassIdentifier: Assembly-CSharp::ZombieData
+  m_EditorClassIdentifier: 
   Health: 100
-  MoveSpeed: 4
+  MoveSpeed: 2
+  AttackCoolDown: 4

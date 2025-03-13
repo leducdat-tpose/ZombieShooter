@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    protected MonsterData monsterData;
+    protected MonsterData monsterData;  
     protected float currentHealth;
     protected Transform player;
     protected Rigidbody2D rigid;

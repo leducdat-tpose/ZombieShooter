@@ -9,8 +9,3 @@ public class MonsterData : ScriptableObject
     public float MoveSpeed;
     public float AttackCoolDown;
 }
-
-[CreateAssetMenu(fileName = "ZombieData", menuName ="Monster Data/ZombieData")]
-public class ZombieData : MonsterData
-{
-}

@@ -12,4 +12,5 @@ public class ItemData : ScriptableObject
 {
     public string ItemName;
     public ItemType Type;
+    public Sprite Sprite;
 }

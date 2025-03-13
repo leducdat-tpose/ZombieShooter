@@ -5,9 +5,12 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField]
-    private ItemData _itemData;
+    protected ItemData _itemData;
     [SerializeField]
-    private int _amount = 1;
+    protected int _amount = 1;
+    private void Awake() {
+        GetComponent<SpriteRenderer>().sprite = _itemData.Sprite;
+    }
     public ItemData GetData() => _itemData;
     public int GetAmount() => _amount;
     private void OnTriggerEnter2D(Collider2D other) {
