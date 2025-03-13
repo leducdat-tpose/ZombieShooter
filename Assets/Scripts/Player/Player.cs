@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+
+public interface IDamageable{
+    public void TakeDamage(float damage);
+}
+
+public class Player : MonoBehaviour, IDamageable
 {
     [Header("Attributes")]
     [SerializeField]
