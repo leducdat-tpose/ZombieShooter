@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.Video;
 
 
 public abstract class Monster : MonoBehaviour, IDamageable
@@ -14,8 +15,14 @@ public abstract class Monster : MonoBehaviour, IDamageable
     public Transform TargetTransform => player;
     protected Rigidbody2D rigid;
     public Rigidbody2D Rigid => rigid;
+    protected StateManager<Monster> stateManager;
+    public enum State{
+        Idle,
+        Chase,
+        Attack,
+        Death
+    }
     public Seeker Seeker{get; private set;}
-    protected float currentAttackCoolDown =0f;
     private void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         Seeker = GetComponent<Seeker>();
@@ -30,27 +37,6 @@ public abstract class Monster : MonoBehaviour, IDamageable
         player = GameObject.FindGameObjectWithTag(Constant.PlayerTag).transform;
         currentHealth = monsterData.Health;
     }
-
-    protected virtual void IdleBehaviour()
-    {
-
-    }
-    protected virtual void RoamBehaviour()
-    {
-
-    }
-    protected virtual void ChaseBehaviour()
-    {
-    }
-    protected virtual void AttackBehaviour()
-    {
-
-    }
-    protected virtual void DeadBehaviour()
-    {
-        Destroy(this.gameObject);
-    }
-
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -58,16 +44,11 @@ public abstract class Monster : MonoBehaviour, IDamageable
         currentHealth = 0;
         Dead();
     }
-    public virtual void Dead()
+    public virtual bool HasLineOfSightToPlayer()
     {
+        return true;
     }
-    public virtual void Chasing()
-    {
-        Vector2 targetVelocity = (player.position - transform.position).normalized * monsterData.MoveSpeed;
-        rigid.MovePosition(rigid.position + targetVelocity*Time.fixedDeltaTime);
-    }
-    protected virtual void Attack()
-    {
-
-    }
+    protected abstract void Dead();
+    public abstract void Attack();
+    public abstract void ChangeState(State state);
 }

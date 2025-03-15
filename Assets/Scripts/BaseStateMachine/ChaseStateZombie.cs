@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using System.Runtime.InteropServices.WindowsRuntime;
-public class ChaseStateZombie : BaseState<MeleeZombie>
+public class ChaseStateZombie : BaseState<Monster>
 {
     private Coroutine _coroutine;
     private Path _path;
-    private float _moveSpeed;
     private int _currentWaypoint = 0;
-    private bool _reachEnd = false;
     private int _nextWayPointDistance = 1;
-    public ChaseStateZombie(MeleeZombie obj, StateManager<MeleeZombie> objectStateManager) : base(obj, objectStateManager)
+    public ChaseStateZombie(Monster obj, StateManager<Monster> objectStateManager) : base(obj, objectStateManager)
     {
     }
 
@@ -38,14 +36,15 @@ public class ChaseStateZombie : BaseState<MeleeZombie>
     public override void Update()
     {
         float distance = Vector2.Distance(owner.TargetTransform.position, owner.transform.position);
-        if(distance <= owner.MonsterData.AttackRange)
+        bool canSeePlayer = owner.HasLineOfSightToPlayer();
+        if(distance <= owner.MonsterData.AttackRange && canSeePlayer)
         {
-            stateManager.ChangeState<AttackStateZombie>();
+            owner.ChangeState(Monster.State.Attack);
             return;
         }
-        if(distance > owner.MonsterData.DetectionRange * 1.5f)
+        if(distance > owner.MonsterData.DetectionRange * 1.5f || (!canSeePlayer && distance > owner.MonsterData.AttackRange * 1.5f))
         {
-            stateManager.ChangeState<IdleStateZombie>();
+            owner.ChangeState(Monster.State.Idle);
             return;
         }
     }
@@ -82,8 +81,8 @@ public class ChaseStateZombie : BaseState<MeleeZombie>
         if(_path == null) return;
         if(_currentWaypoint >= _path.vectorPath.Count)
         {
-            _reachEnd = true; return;
-        } else _reachEnd = false;
+            return;
+        }
         Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] - owner.Rigid.position).normalized;
         Vector2 force = direction * owner.MonsterData.MoveSpeed*100 * Time.fixedDeltaTime;
         owner.Rigid.AddForce(force);

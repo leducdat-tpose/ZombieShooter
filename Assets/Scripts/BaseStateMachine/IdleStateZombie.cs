@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleStateZombie : BaseState<MeleeZombie>
+public class IdleStateZombie : BaseState<Monster>
 {
-    public IdleStateZombie(MeleeZombie obj, StateManager<MeleeZombie> objectStateManager) : base(obj, objectStateManager)
+    public IdleStateZombie(Monster obj, StateManager<Monster> objectStateManager) : base(obj, objectStateManager)
     {
     }
 
@@ -21,7 +21,7 @@ public class IdleStateZombie : BaseState<MeleeZombie>
         float distance = Vector2.Distance(owner.TargetTransform.position, owner.transform.position);
         if(distance <= owner.MonsterData.DetectionRange)
         {
-            stateManager.ChangeState<ChaseStateZombie>();
+            owner.ChangeState(Monster.State.Chase);
         }
     }
 

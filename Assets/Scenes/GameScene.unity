@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 18448497}
   - component: {fileID: 18448498}
   - component: {fileID: 18448499}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: PlayerHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 72620664}
   - component: {fileID: 72620667}
   - component: {fileID: 72620668}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &177116369
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -701,6 +701,10 @@ PrefabInstance:
     - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_Name
       value: CollectableItem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1763,7 +1767,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391110718}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1978,6 +1982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615466958}
   - component: {fileID: 615466957}
+  - component: {fileID: 615466960}
   - component: {fileID: 615466956}
   - component: {fileID: 615466955}
   - component: {fileID: 615466959}
@@ -1987,7 +1992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &615466955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,7 +2007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: 8202b2cf27ecd6f48a9719c6df3d8de0, type: 2}
   _bulletPrefab: {fileID: 3531817930954284894, guid: aa4e4adf15238134e856e15ea6f234d2, type: 3}
-  _safeDistance: 5
 --- !u!50 &615466956
 Rigidbody2D:
   serializedVersion: 4
@@ -2097,8 +2101,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &615466959
-BoxCollider2D:
+--- !u!58 &615466959
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2129,19 +2133,37 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0.21133333}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
+--- !u!114 &615466960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615466954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &633884833
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,7 +5084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619292028}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

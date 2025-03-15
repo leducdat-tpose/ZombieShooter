@@ -1,57 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class RangedZombie : Monster
 {
     [SerializeField]
     private GameObject _bulletPrefab;
-    [SerializeField]
-    private float _safeDistance;
-
-    private void Start() {
-        player = GameObject.FindGameObjectWithTag(Constant.PlayerTag).transform;
-        // ChangeState(MonsterState.Chase);
+    private int _layerObstacle = 8;
+    protected override void Start() {
+        base.Start();
+        stateManager = new StateManager<Monster>();
+        stateManager.AddState(new IdleStateZombie(this, stateManager));
+        stateManager.AddState(new ChaseStateZombie(this, stateManager));
+        stateManager.AddState(new AttackStateZombie(this, stateManager));
+        stateManager.AddState(new DeathStateZombie(this, stateManager));
+        stateManager.ChangeState<IdleStateZombie>();
     }
-    protected override void AttackBehaviour()
-    {
-        if(currentAttackCoolDown > 0) return;
-        Attack();
+    private void Update() {
+        stateManager.Update();
     }
-
-    // protected override void Update()
-    // {
-    //     if(currentAttackCoolDown > 0)
-    //     {
-    //         currentAttackCoolDown -= Time.deltaTime;
-    //     }
-
-    //     base.Update();
-    // }
-    protected override void Attack()
+    private void FixedUpdate() {
+        stateManager.FixedUpdate();
+    }
+    public override bool HasLineOfSightToPlayer()
     {
-        // if(DistanceToPlayerIsSafe()) ChangeState(MonsterState.Chase);
-        currentAttackCoolDown = monsterData.AttackCoolDown;
+        if(player == null) return false;
+        Vector2 direction = player.position - transform.position;
+        float distance = direction.magnitude;
+        direction = direction.normalized;
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            direction,
+            distance,
+            1 << _layerObstacle
+        );
+        Debug.DrawRay(transform.position, direction * distance,
+        hit.collider != null ? Color.red: Color.green);
+        if(hit.collider != null)
+        {
+            if(hit.collider.gameObject.CompareTag(Constant.PlayerTag))
+            {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+    public override void Attack()
+    {
         GameObject projectile = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
         projectile.SetActive(false);
         Bullet bullet = projectile.GetComponent<Bullet>();
-        bullet.Initialise(player.position);
+        bullet.Initialise(TargetTransform.position);
+    }
+    protected override void Dead()
+    {
+        ChangeState(State.Death);
     }
 
-    public override void Chasing()
+    public override void ChangeState(State state)
     {
-        if(DistanceToPlayerIsSafe())
+        switch (state)
         {
-            base.Chasing();
+            case State.Idle:
+                stateManager.ChangeState<IdleStateZombie>();
+                break;
+            case State.Attack:
+                stateManager.ChangeState<AttackStateZombie>();
+                break;
+            case State.Chase:
+                stateManager.ChangeState<ChaseStateZombie>();
+                break;
+            case State.Death:
+                stateManager.ChangeState<DeathStateZombie>();
+                break;
         }
-        else{
-            // ChangeState(MonsterState.Attack);
-            rigid.velocity = Vector2.zero;
-        }
-    }
-    private bool DistanceToPlayerIsSafe()
-    {
-        if(Vector2.Distance(player.position, transform.position) > _safeDistance) return true;
-        return false;
     }
 }

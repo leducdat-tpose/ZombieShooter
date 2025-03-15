@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   MoveSpeed: 3
+  Damage: 10
   AttackCoolDown: 2
+  AttackRange: 4
+  DetectionRange: 6

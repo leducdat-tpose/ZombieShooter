@@ -5,24 +5,51 @@ using UnityEngine;
 
 public class MeleeZombie : Monster
 {
-    private StateManager<MeleeZombie> _stateManager;
+    
     protected override void Start() {
         base.Start();
-        _stateManager = new StateManager<MeleeZombie>();
-        _stateManager.AddState(new IdleStateZombie(this, _stateManager));
-        _stateManager.AddState(new ChaseStateZombie(this, _stateManager));
-        _stateManager.AddState(new AttackStateZombie(this, _stateManager));
-        _stateManager.AddState(new DeathStateZombie(this, _stateManager));
-        _stateManager.ChangeState<IdleStateZombie>();
+        stateManager = new StateManager<Monster>();
+        stateManager.AddState(new IdleStateZombie(this, stateManager));
+        stateManager.AddState(new ChaseStateZombie(this, stateManager));
+        stateManager.AddState(new AttackStateZombie(this, stateManager));
+        stateManager.AddState(new DeathStateZombie(this, stateManager));
+        stateManager.ChangeState<IdleStateZombie>();
     }
     private void Update() {
-        _stateManager.Update();
+        stateManager.Update();
     }
     private void FixedUpdate() {
-        _stateManager.FixedUpdate();
+        stateManager.FixedUpdate();
     }
-    public override void Dead()
+    protected override void Dead()
     {
-        _stateManager.ChangeState<DeathStateZombie>();
+        ChangeState(State.Death);
+    }
+
+    public override void Attack()
+    {
+        if(TargetTransform.TryGetComponent<Player>(out Player component))
+        {
+            component.TakeDamage(MonsterData.Damage);
+        }
+    }
+
+    public override void ChangeState(State state)
+    {
+        switch (state)
+        {
+            case State.Idle:
+                stateManager.ChangeState<IdleStateZombie>();
+                break;
+            case State.Attack:
+                stateManager.ChangeState<AttackStateZombie>();
+                break;
+            case State.Chase:
+                stateManager.ChangeState<ChaseStateZombie>();
+                break;
+            case State.Death:
+                stateManager.ChangeState<DeathStateZombie>();
+                break;
+        }
     }
 }
