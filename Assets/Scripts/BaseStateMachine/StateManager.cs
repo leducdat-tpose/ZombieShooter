@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class StateManager<T>
 {
-    public BaseState<T> CurrentState{get; private set;}
-    public void Initialise(BaseState<T> startingState)
+    private BaseState<T> _currentState;
+    private Dictionary<System.Type, BaseState<T>> states = new Dictionary<System.Type, BaseState<T>>();
+    public void AddState(BaseState<T> state)
     {
-        CurrentState = startingState;
-        CurrentState.EnterState();
+        states[state.GetType()] = state;
     }
 
-    public void ChangeState(BaseState<T> newState)
+    public void ChangeState<TState>() where TState : BaseState<T>
     {
-        if(CurrentState == newState) return;
-        CurrentState.ExitState();
-        CurrentState = newState;
-        CurrentState.EnterState();
+        if(_currentState != null)
+        {
+            _currentState.ExitState();
+        }
+        _currentState = states[typeof(TState)];
+        _currentState.EnterState();
     }
+    public void Update()
+    {
+        _currentState?.Update();
+    }
+    public void FixedUpdate()
+    {
+        _currentState?.FixedUpdate();
+    }
+
+    public System.Type GetCurrentStateType() => _currentState?.GetType();
 }

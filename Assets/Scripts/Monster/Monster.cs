@@ -1,75 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
-public class Monster : MonoBehaviour, IDamageable
+
+public abstract class Monster : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    protected MonsterData monsterData;  
+    protected MonsterData monsterData;
+    public MonsterData MonsterData => monsterData; 
     protected float currentHealth;
     protected Transform player;
+    public Transform TargetTransform => player;
     protected Rigidbody2D rigid;
-
+    public Rigidbody2D Rigid => rigid;
+    public Seeker Seeker{get; private set;}
     protected float currentAttackCoolDown =0f;
-
-    protected enum MonsterState{
-        Idle,
-        Chase,
-        Attack,
-        Dead
-    }
-    protected MonsterState currentState;
     private void Awake() {
         rigid = GetComponent<Rigidbody2D>();
+        Seeker = GetComponent<Seeker>();
     }
     public virtual void Initialise(MonsterData monsterData, Transform playerTransform)
     {
         this.monsterData = monsterData;
         this.player = playerTransform;
-        currentState = MonsterState.Idle;
-    }
-    protected virtual void Update() {
-        switch (currentState)
-        {
-            case MonsterState.Idle:
-                IdleBehaviour();
-                break;
-            case MonsterState.Chase:
-                ChaseBehaviour();
-                break;
-            case MonsterState.Attack:
-                AttackBehaviour();
-                break;
-            case MonsterState.Dead:
-                DeadBehaviour();
-                break;
-        }
-    }
-    private void FixedUpdate() {
-        if(currentState == MonsterState.Chase)
-        {
-            Move();
-        }
     }
 
-    protected bool ChangeState(MonsterState state)
-    {
-        if(currentState == state) return false;
-        currentState = state;
-        return true;
+    protected virtual void Start() {
+        player = GameObject.FindGameObjectWithTag(Constant.PlayerTag).transform;
+        currentHealth = monsterData.Health;
     }
 
     protected virtual void IdleBehaviour()
     {
 
     }
+    protected virtual void RoamBehaviour()
+    {
+
+    }
     protected virtual void ChaseBehaviour()
     {
-        if(player == null)
-        {
-            ChangeState(MonsterState.Idle);
-            return;
-        }
     }
     protected virtual void AttackBehaviour()
     {
@@ -89,16 +60,8 @@ public class Monster : MonoBehaviour, IDamageable
     }
     public virtual void Dead()
     {
-        ChangeState(MonsterState.Dead);
     }
-    protected virtual void RotateTowardTarget()
-    {
-        Vector2 targetDirection = player.position - transform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
-        Quaternion q = Quaternion.Euler(new Vector3(0,0,angle));
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, q, 0.01f);
-    }
-    protected virtual void Move()
+    public virtual void Chasing()
     {
         Vector2 targetVelocity = (player.position - transform.position).normalized * monsterData.MoveSpeed;
         rigid.MovePosition(rigid.position + targetVelocity*Time.fixedDeltaTime);

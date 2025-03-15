@@ -2,21 +2,19 @@ using UnityEngine;
 
 public abstract class BaseState<T>
 {
-    protected readonly BaseBehaviour<T> Behaviour;
-    protected readonly T Object;
-    protected StateManager<T> ObjectStateManager;
+    protected readonly T owner;
+    protected StateManager<T> stateManager;
 
-    protected BaseState(T obj, StateManager<T> objectStateManager, BaseBehaviour<T> behaviour)
+    protected BaseState(T obj, StateManager<T> objectStateManager)
     {
-        Object = obj;
-        ObjectStateManager = objectStateManager;
-        Behaviour = behaviour;
+        owner = obj;
+        stateManager = objectStateManager;
     }
     
     public abstract void EnterState();
     public abstract void ExitState();
-    public abstract void FrameUpdate();
-    public abstract void PhysicsUpdate();
+    public abstract void Update();
+    public abstract void FixedUpdate();
     public virtual void AnimationTriggerEvent() { }
     public virtual void GetNextState() { }
     public virtual void OnTriggerEnter(Collider2D collision) { }

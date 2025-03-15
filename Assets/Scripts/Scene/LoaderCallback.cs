@@ -8,6 +8,9 @@ public class LoaderCallback : MonoBehaviour
     [SerializeField]
     private Image _loadingSlideBar;
     private bool _isFirstUpdate = true;
+    private void Start() {
+        _loadingSlideBar.fillAmount = 0;
+    }
     private void Update() {
         if(_isFirstUpdate)
         {

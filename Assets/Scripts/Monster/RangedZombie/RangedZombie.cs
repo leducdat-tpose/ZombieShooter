@@ -11,7 +11,7 @@ public class RangedZombie : Monster
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag(Constant.PlayerTag).transform;
-        ChangeState(MonsterState.Chase);
+        // ChangeState(MonsterState.Chase);
     }
     protected override void AttackBehaviour()
     {
@@ -19,18 +19,18 @@ public class RangedZombie : Monster
         Attack();
     }
 
-    protected override void Update()
-    {
-        if(currentAttackCoolDown > 0)
-        {
-            currentAttackCoolDown -= Time.deltaTime;
-        }
+    // protected override void Update()
+    // {
+    //     if(currentAttackCoolDown > 0)
+    //     {
+    //         currentAttackCoolDown -= Time.deltaTime;
+    //     }
 
-        base.Update();
-    }
+    //     base.Update();
+    // }
     protected override void Attack()
     {
-        if(DistanceToPlayerIsSafe()) ChangeState(MonsterState.Chase);
+        // if(DistanceToPlayerIsSafe()) ChangeState(MonsterState.Chase);
         currentAttackCoolDown = monsterData.AttackCoolDown;
         GameObject projectile = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
         projectile.SetActive(false);
@@ -38,14 +38,14 @@ public class RangedZombie : Monster
         bullet.Initialise(player.position);
     }
 
-    protected override void Move()
+    public override void Chasing()
     {
         if(DistanceToPlayerIsSafe())
         {
-            base.Move();
+            base.Chasing();
         }
         else{
-            ChangeState(MonsterState.Attack);
+            // ChangeState(MonsterState.Attack);
             rigid.velocity = Vector2.zero;
         }
     }
