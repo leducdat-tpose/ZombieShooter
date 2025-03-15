@@ -12,25 +12,32 @@ public class GrenadeLauncher : Weapon
     private AnimationCurve _speedCurve;
     [SerializeField]
     private float _maxRelativeHeight;
-    public override void Fire()
+    public override void Fire(Vector3 position, bool noneReload = false)
     {
-        nextFireTime = Time.time + (1f/weaponData.FireRate);
-        currentAmmo--;
+        if(noneReload == false)
+        {
+            nextFireTime = Time.time + (1f/weaponData.FireRate);
+            currentAmmo--;
+        }
         GameObject projectile = Instantiate(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
         if(projectile.TryGetComponent<ParabolicProjectile>(out ParabolicProjectile component))
         {
-            Vector3 mousePos = KeyboardWeaponInput.GetMousePosition(Camera.main);
-            component.Initialise(weaponData.Damage, mousePos);
+            // Vector3 mousePos = KeyboardWeaponInput.GetMousePosition(Camera.main);
+            component.Initialise(weaponData.Damage, position);
             component.SetCurves(_pathCurve, _axisCorrectionCurve, _speedCurve, _maxRelativeHeight);
         }
     }
 
-    public override void HandleInput()
+    public override void HandleInput(Vector3 position, bool noneReload = false)
     {
+        if(noneReload == true)
+        {
+            Fire(position, noneReload);
+        }
         if(currentAmmo == 0) Reload();
         if(KeyboardWeaponInput.IsFiringReleased() && Time.time > nextFireTime && !isReloading)
         {
-            Fire();
+            Fire(position, noneReload);
         }
     }
 

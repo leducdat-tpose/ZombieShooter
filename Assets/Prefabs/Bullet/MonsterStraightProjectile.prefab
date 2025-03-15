@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2135913089332340837}
   - component: {fileID: 5593949945897733459}
   - component: {fileID: 6193044655314428755}
-  - component: {fileID: -7999653185252036796}
+  - component: {fileID: -3570970906940576190}
   m_Layer: 0
-  m_Name: EnemyBullet
+  m_Name: MonsterStraightProjectile
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-7999653185252036796
+--- !u!114 &-3570970906940576190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3531817930954284894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 444ca483da861d54bb97364a95aeb313, type: 3}
+  m_Script: {fileID: 11500000, guid: 783f368d29e47444b9ae86fd63fe7b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 6.5
+  _moveSpeed: 8

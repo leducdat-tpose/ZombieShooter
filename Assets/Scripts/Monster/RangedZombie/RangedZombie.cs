@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class RangedZombie : Monster
 {
-    [SerializeField]
-    private GameObject _bulletPrefab;
-    private int _layerObstacle = 8;
+    private MonsterAimWeapon _aimWeapon;
     protected override void Start() {
         base.Start();
+        _aimWeapon = GetComponent<MonsterAimWeapon>();
         stateManager = new StateManager<Monster>();
         stateManager.AddState(new IdleStateZombie(this, stateManager));
         stateManager.AddState(new ChaseStateZombie(this, stateManager));
@@ -33,7 +32,7 @@ public class RangedZombie : Monster
             transform.position,
             direction,
             distance,
-            1 << _layerObstacle
+            Constant.ObstacleLayerMaskValue
         );
         Debug.DrawRay(transform.position, direction * distance,
         hit.collider != null ? Color.red: Color.green);
@@ -49,10 +48,7 @@ public class RangedZombie : Monster
     }
     public override void Attack()
     {
-        GameObject projectile = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-        projectile.SetActive(false);
-        Bullet bullet = projectile.GetComponent<Bullet>();
-        bullet.Initialise(TargetTransform.position);
+        _aimWeapon.HandleShooting();
     }
     protected override void Dead()
     {

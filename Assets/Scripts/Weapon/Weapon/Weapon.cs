@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
     protected bool isReloading;
     protected int currentAmmo;
     public abstract void Initialise();
-    public abstract void Fire();
+    public abstract void Fire(Vector3 position, bool noneReload = false);
     public abstract void Reload();
-    public abstract void HandleInput();
+    public abstract void HandleInput(Vector3 position, bool noneReload = false);
 }

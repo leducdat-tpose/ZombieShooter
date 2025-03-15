@@ -1,28 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 
-public class PlayerAimWeapon : MonoBehaviour
+public class MonsterAimWeapon : MonoBehaviour
 {
+    private Monster _monster;
     private Transform _aimTransform;
-    private Vector3 _mousePosition;
     private Weapon _weapon;
+    // Start is called before the first frame update
     private void Awake() {
         _aimTransform = transform.Find("Aim");
+        _monster = GetComponent<Monster>();
     }
-    private void Start() {
+    void Start()
+    {
         _weapon = _aimTransform.GetComponentInChildren<Weapon>();
         _weapon.Initialise();
     }
-    private void Update() {
-        _mousePosition = KeyboardWeaponInput.GetMousePosition(Camera.main);
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(_monster.TargetTransform == null) return;
         HandleAiming();
-        HandleShooting();
     }
     private void HandleAiming()
     {
-        Vector3 aimDirection = (_mousePosition - transform.position).normalized;
+        Vector3 aimDirection = (_monster.TargetTransform.position - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         _aimTransform.eulerAngles = new Vector3(0, 0, angle);
         Vector3 aimLocalScale = Vector3.one;
@@ -36,8 +40,8 @@ public class PlayerAimWeapon : MonoBehaviour
         _aimTransform.localScale = aimLocalScale;
     }
 
-    private void HandleShooting()
+    public void HandleShooting()
     {
-        _weapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+        _weapon.HandleInput(_monster.TargetTransform.position, noneReload: true);
     }
 }

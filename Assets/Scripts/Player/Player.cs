@@ -59,12 +59,4 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
     public float GetHealth() => _health;
-
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag(Constant.EnemyBulletTag))
-        {
-            TakeDamage(10);
-            Destroy(other.gameObject);
-        }
-    }
 }
