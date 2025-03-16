@@ -57,10 +57,6 @@ public class Player : MonoBehaviour, IDamageable
         IsStunned = false;
     }
     private void Update() {
-        if(Input.GetMouseButtonDown(1))
-        {
-            Stun(3f);
-        }
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             foreach(KeyValuePair<ItemData, int> keyValuePair in Inventory.GetData())

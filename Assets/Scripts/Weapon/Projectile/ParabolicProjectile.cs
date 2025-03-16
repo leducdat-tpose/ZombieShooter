@@ -88,18 +88,17 @@ public class ParabolicProjectile : Projectile
                 }
                 if(_affectedColliders[i].gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
-                    Debug.Log($"{_affectedColliders[i].gameObject.name}, eat damage: {damage}");
                     damageable.TakeDamage(damage);
                 }
             }
         }
-        StartCoroutine(StartDestroyAfterExplode());
+        StartCoroutine(StartReturnPoolAfterExplode());
     }
 
-    private IEnumerator StartDestroyAfterExplode()
+    private IEnumerator StartReturnPoolAfterExplode()
     {
         yield return new WaitForSeconds(3f);
-        Destroy(this.gameObject);
+        GetComponent<PooledObject>().ReturnToPool();
     }
 
     private void HandleSpeed(float nextPositionXNormalize)
@@ -109,5 +108,9 @@ public class ParabolicProjectile : Projectile
 
     protected override void OnHit(Collider2D other)
     {
+    }
+    public override void OnObjectSpawn()
+    {
+        _isExplode = false;
     }
 }

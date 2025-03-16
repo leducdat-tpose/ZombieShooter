@@ -32,20 +32,24 @@ public class StraightProjectile : Projectile
             if(other.TryGetComponent<Player>(out Player player))
             {
                 player.TakeDamage(damage);
-                Destroy(this.gameObject);
+                GetComponent<PooledObject>().ReturnToPool();
             }
         }
         else if(other.CompareTag(Constant.StaticObject))
         {
-            Destroy(this.gameObject);
+            GetComponent<PooledObject>().ReturnToPool();
         }
         else
         {
             if(other.TryGetComponent<Monster>(out Monster monster))
             {
                 monster.TakeDamage(damage);
-                Destroy(this.gameObject);
+                GetComponent<PooledObject>().ReturnToPool();
             }
         }
+    }
+    public override void OnObjectSpawn()
+    {
+        
     }
 }

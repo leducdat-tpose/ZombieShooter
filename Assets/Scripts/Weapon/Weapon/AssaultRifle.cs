@@ -13,14 +13,14 @@ public class AssaultRifle : Weapon
             nextFireTime = Time.time + (1f/weaponData.FireRate);
             currentAmmo--;
         }
-        GameObject projectile = Instantiate(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
+        // GameObject projectile = Instantiate(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile = ObjectPool.Instance.GetObject(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
         if(projectile.TryGetComponent<StraightProjectile>(out StraightProjectile component))
         {
             // Vector3 mousePos = KeyboardWeaponInput.GetMousePosition(Camera.main);
             Vector2 direction = (position - transform.position).normalized;
             component.Initialise(weaponData.Damage, direction);
         }
-        Destroy(projectile, 3f);
     }
 
     public override void HandleInput(Vector3 position, bool noneReload = false)
@@ -30,7 +30,7 @@ public class AssaultRifle : Weapon
             Fire(position, noneReload); 
             return;
         }
-        _isShooting = KeyboardWeaponInput.IsFiring();
+        _isShooting = KeyboardWeaponInput.PrimaryIsFiring();
         if(KeyboardWeaponInput.IsReloading() || currentAmmo == 0) Reload();
         if(_isShooting && Time.time > nextFireTime && !isReloading)
         {
@@ -41,6 +41,7 @@ public class AssaultRifle : Weapon
 
     public override void Initialise()
     {
+        if(!HaveWeaponData()) return;
         GameObject.Instantiate(weaponData.WeaponPrefab, parent: transform);
         currentAmmo = weaponData.AmmoCapacityPerMagazine;
     }

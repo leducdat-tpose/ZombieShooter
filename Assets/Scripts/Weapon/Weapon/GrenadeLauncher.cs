@@ -19,7 +19,8 @@ public class GrenadeLauncher : Weapon
             nextFireTime = Time.time + (1f/weaponData.FireRate);
             currentAmmo--;
         }
-        GameObject projectile = Instantiate(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
+        // GameObject projectile = Instantiate(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectile = ObjectPool.Instance.GetObject(weaponData.ProjectilePrefab, transform.position, Quaternion.identity);
         if(projectile.TryGetComponent<ParabolicProjectile>(out ParabolicProjectile component))
         {
             // Vector3 mousePos = KeyboardWeaponInput.GetMousePosition(Camera.main);
@@ -35,7 +36,7 @@ public class GrenadeLauncher : Weapon
             Fire(position, noneReload);
         }
         if(currentAmmo == 0) Reload();
-        if(KeyboardWeaponInput.IsFiringReleased() && Time.time > nextFireTime && !isReloading)
+        if(KeyboardWeaponInput.SecondIsFiringReleased() && Time.time > nextFireTime && !isReloading)
         {
             Fire(position, noneReload);
         }
@@ -43,7 +44,8 @@ public class GrenadeLauncher : Weapon
 
     public override void Initialise()
     {
-        GameObject.Instantiate(weaponData.WeaponPrefab, parent: transform);
+        if(!HaveWeaponData()) return;
+        // GameObject.Instantiate(weaponData.WeaponPrefab, parent: transform);
         currentAmmo = weaponData.AmmoCapacityPerMagazine;
     }
 

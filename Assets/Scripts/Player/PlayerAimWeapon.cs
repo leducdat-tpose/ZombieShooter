@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
+    private Player _player;
     private Transform _aimTransform;
     private Vector3 _mousePosition;
-    private Weapon _weapon;
+    private Weapon _primaryWeapon;
+    private Weapon _secondWeapon;
     private void Awake() {
         _aimTransform = transform.Find("Aim");
+        _player = GetComponent<Player>();
     }
     private void Start() {
-        _weapon = _aimTransform.GetComponentInChildren<Weapon>();
-        _weapon.Initialise();
+        _primaryWeapon = _aimTransform.GetComponentInChildren<AssaultRifle>();
+        _secondWeapon = _aimTransform.GetComponentInChildren<GrenadeLauncher>();
+        _primaryWeapon.Initialise();
+        _secondWeapon.Initialise();
     }
     private void Update() {
+        if(_player.IsStunned || _player.IsDead) return;
         _mousePosition = KeyboardWeaponInput.GetMousePosition(Camera.main);
         HandleAiming();
         HandleShooting();
@@ -38,6 +44,13 @@ public class PlayerAimWeapon : MonoBehaviour
 
     private void HandleShooting()
     {
-        _weapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+        if(_primaryWeapon != null && _primaryWeapon.HaveWeaponData())
+        {
+            _primaryWeapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+        }
+        if(_secondWeapon != null && _primaryWeapon.HaveWeaponData())
+        {
+            _secondWeapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+        }
     }
 }
