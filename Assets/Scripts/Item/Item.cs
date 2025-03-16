@@ -17,7 +17,6 @@ public class Item : MonoBehaviour
         if(!other.CompareTag(Constant.PlayerTag)) return;
         Player player = other.GetComponent<Player>();
         player.Inventory.AddItem(_itemData, _amount);
-        _itemData.ItemFunction(player.gameObject);
         Destroy(this.gameObject);
     }
 }

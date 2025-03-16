@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable
     private float _currentHealth;
     [SerializeField]
     private float _invincibleTime = 2f;
-    public Inventory Inventory{get; private set;} = new Inventory();
+    public Inventory Inventory{get; private set;}
     public bool IsInvincible{get; private set;}
     public bool IsDead{get; private set;}
     public bool IsStunned{get; private set;}
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour, IDamageable
     public void Initialise()
     {
         _currentHealth = _maxHealth;
+        Inventory = Inventory.CreateAndInit(this);
         IsInvincible = false;
         IsDead = false;
         IsStunned = false;

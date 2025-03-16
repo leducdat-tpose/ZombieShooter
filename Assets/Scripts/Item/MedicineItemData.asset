@@ -15,4 +15,5 @@ MonoBehaviour:
   ItemName: Medicine
   Type: 2
   Sprite: {fileID: -1812646797, guid: 1391403290f6d3048b33db1a34cf8bb6, type: 3}
+  CanPlayerUse: 1
   HealthAmount: 5

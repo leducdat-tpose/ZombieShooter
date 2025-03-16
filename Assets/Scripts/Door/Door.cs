@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
         if(!other.CompareTag(Constant.PlayerTag)) return;
         Player player = other.GetComponent<Player>();
         if(!player.Inventory.HaveThisItem(_requireKeyData)) return;
-        player.Inventory.UseItem(_requireKeyData);
+        player.Inventory.GetAmountItem(_requireKeyData);
         Destroy(this.gameObject);
     }
 }

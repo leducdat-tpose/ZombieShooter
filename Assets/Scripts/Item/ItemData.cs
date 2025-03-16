@@ -14,5 +14,6 @@ public class ItemData : ScriptableObject
     public string ItemName;
     public ItemType Type;
     public Sprite Sprite;
+    public bool CanPlayerUse;
     public virtual void ItemFunction(GameObject obj){}
 }
