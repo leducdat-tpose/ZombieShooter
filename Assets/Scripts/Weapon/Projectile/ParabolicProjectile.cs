@@ -88,6 +88,7 @@ public class ParabolicProjectile : Projectile
                 }
                 if(_affectedColliders[i].gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
+                    Debug.Log($"{_affectedColliders[i].gameObject.name}, eat damage: {damage}");
                     damageable.TakeDamage(damage);
                 }
             }

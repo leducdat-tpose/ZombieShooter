@@ -2,31 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System;
 
 public interface IDamageable{
     public void TakeDamage(float damage);
+    public void Healing(float healthAmount);
 }
 
 public class Player : MonoBehaviour, IDamageable
 {
     [Header("Attributes")]
     [SerializeField]
-    private float _health = 100;
+    private float _maxHealth = 100;
+    private float _currentHealth;
     [SerializeField]
     private float _invincibleTime = 2f;
     public Inventory Inventory{get; private set;} = new Inventory();
-    public bool IsInvincible{get; private set;} = false;
-    public bool IsDead{get; private set;} = false;
-    public bool IsStunned{get; private set;} = false;
+    public bool IsInvincible{get; private set;}
+    public bool IsDead{get; private set;}
+    public bool IsStunned{get; private set;}
+    public event Action OnPlayerDataChanged;
+    public void Initialise()
+    {
+        _currentHealth = _maxHealth;
+        IsInvincible = false;
+        IsDead = false;
+        IsStunned = false;
+    }
     public void TakeDamage(float damage)
     {
         if(IsInvincible || IsDead) return;
-        Debug.Log("take damage");
-        _health -= damage;
+        _currentHealth -= damage;
+        OnPlayerDataChanged?.Invoke();
         StartCoroutine(InvincibleCoroutine());
-        if(_health > 0) return;
-        _health = 0;
+        if(_currentHealth > 0) return;
+        _currentHealth = 0;
         IsDead = true;
     }
     private IEnumerator InvincibleCoroutine()
@@ -58,5 +68,12 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
     }
-    public float GetHealth() => _health;
+    public void Healing(float healthAmount)
+    {
+        _currentHealth += healthAmount;
+        if(_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+        OnPlayerDataChanged?.Invoke();
+    }
+    public float GetMaxHealth() => _maxHealth;
+    public float GetCurrentHealth() => _currentHealth;
 }

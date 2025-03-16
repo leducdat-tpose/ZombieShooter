@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MonsterData", menuName ="Monster Data/MonsterData")]
 public class MonsterData : ScriptableObject
 {
-    public float Health;
+    public float MaxHealth;
     public float MoveSpeed;
     public float Damage;
     public float AttackCoolDown;

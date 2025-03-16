@@ -35,7 +35,7 @@ public abstract class Monster : MonoBehaviour, IDamageable
 
     protected virtual void Start() {
         player = GameObject.FindGameObjectWithTag(Constant.PlayerTag).transform;
-        currentHealth = monsterData.Health;
+        currentHealth = monsterData.MaxHealth;
     }
     public virtual void TakeDamage(float damage)
     {
@@ -44,6 +44,11 @@ public abstract class Monster : MonoBehaviour, IDamageable
         currentHealth = 0;
         Dead();
     }
+    public virtual void Healing(float healthAmount)
+    {
+        currentHealth += healthAmount;
+        if(currentHealth > monsterData.MaxHealth) currentHealth = monsterData.MaxHealth;
+    }
     public virtual bool HasLineOfSightToPlayer()
     {
         return true;
@@ -51,4 +56,6 @@ public abstract class Monster : MonoBehaviour, IDamageable
     protected abstract void Dead();
     public abstract void Attack();
     public abstract void ChangeState(State state);
+
+    
 }
