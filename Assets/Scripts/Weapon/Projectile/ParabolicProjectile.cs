@@ -20,8 +20,12 @@ public class ParabolicProjectile : Projectile
     private AnimationCurve _speedCurve;
     private Vector2 _startPosition;
     private float _maxRelativeHeight;
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
     public override void Initialise(float damage, Vector2 direction)
     {
+        animator.Play("Default");
         _moveSpeed = _maxMoveSpeed;
         _startPosition = transform.position;
         this.damage = damage;
@@ -71,6 +75,7 @@ public class ParabolicProjectile : Projectile
 
     void Explode()
     {
+        animator.SetTrigger("Hit");
         _isExplode = true;
         int numColliders = Physics2D.OverlapCircle(transform.position, _explodeRadius, _contactFilter, _affectedColliders);
 

@@ -6,8 +6,12 @@ public class StraightProjectile : Projectile
 {
     [SerializeField]
     private float _moveSpeed = 20f;
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
     public override void Initialise(float damage, Vector2 direction)
     {
+        animator.Play("Default");
         this.damage = damage;
         this.direction = direction;
     }
@@ -32,24 +36,30 @@ public class StraightProjectile : Projectile
             if(other.TryGetComponent<Player>(out Player player))
             {
                 player.TakeDamage(damage);
-                GetComponent<PooledObject>().ReturnToPool();
+                
             }
         }
-        else if(other.CompareTag(Constant.StaticObject))
+        if(other.CompareTag(Constant.StaticObject))
         {
-            GetComponent<PooledObject>().ReturnToPool();
         }
-        else
+        if(!this.CompareTag(Constant.EnemyBulletTag))
         {
             if(other.TryGetComponent<Monster>(out Monster monster))
             {
                 monster.TakeDamage(damage);
-                GetComponent<PooledObject>().ReturnToPool();
             }
         }
+        StartCoroutine(ReturnPoolAfterHit());
+    }
+    private IEnumerator ReturnPoolAfterHit()
+    {
+        animator.SetTrigger("Hit");
+        direction = Vector2.zero;
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<PooledObject>().ReturnToPool();
     }
     public override void OnObjectSpawn()
     {
-        
+        animator.Play("Default");
     }
 }

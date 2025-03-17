@@ -30,9 +30,9 @@ public class AttackStateZombie : BaseState<Monster>
     public override void Update()
     {
         float distance = Vector2.Distance(owner.TargetTransform.position, owner.transform.position);
-        if(distance > owner.MonsterData.AttackRange || !owner.HasLineOfSightToPlayer())
+        if(distance > owner.GetAttackRange() || !owner.HasLineOfSightToPlayer())
         {
-            stateManager.ChangeState<ChaseStateZombie>();
+            owner.ChangeState(Monster.State.Chase);
             return;
         }
         if(_canAttack && Time.time >= _lastAttackTime + owner.MonsterData.AttackCoolDown)

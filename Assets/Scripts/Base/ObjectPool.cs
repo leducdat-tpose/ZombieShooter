@@ -128,7 +128,7 @@ public class PooledObject : MonoBehaviour
 {
     [HideInInspector]
     public ObjectPool Pool;
-    public float LifeTime = -1;
+    public float LifeTime = 10;
     
     private float _spawnTime;
     

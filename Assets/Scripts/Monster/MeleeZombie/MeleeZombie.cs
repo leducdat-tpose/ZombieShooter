@@ -17,15 +17,11 @@ public class MeleeZombie : Monster
     }
     private void Update() {
         stateManager.Update();
+        Render();
     }
     private void FixedUpdate() {
         stateManager.FixedUpdate();
     }
-    protected override void Dead()
-    {
-        ChangeState(State.Death);
-    }
-
     public override void Attack()
     {
         if(TargetTransform.TryGetComponent<Player>(out Player component))

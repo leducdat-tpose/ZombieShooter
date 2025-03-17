@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c28a0b6e9d09d1445b138b05c982d709, type: 3}
   m_Name: MeleeZombieData
   m_EditorClassIdentifier: 
-  Health: 10000
+  MaxHealth: 20
   MoveSpeed: 2
   Damage: 10
   AttackCoolDown: 3

@@ -22,6 +22,7 @@ public class MonsterAimWeapon : MonoBehaviour
     void Update()
     {
         if(_monster.TargetTransform == null) return;
+        if(_monster.GetCurrentHealth() <= 0) return;
         HandleAiming();
     }
     private void HandleAiming()

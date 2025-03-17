@@ -6,6 +6,7 @@ public abstract class Projectile : MonoBehaviour, IPoolable
 {
     protected float damage;
     protected Vector2 direction;
+    protected Animator animator;
     public abstract void Initialise(float damage, Vector2 direction);
 
     public virtual void OnObjectSpawn(){}

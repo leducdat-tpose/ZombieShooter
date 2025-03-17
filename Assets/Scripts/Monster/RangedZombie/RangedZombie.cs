@@ -18,6 +18,7 @@ public class RangedZombie : Monster
     }
     private void Update() {
         stateManager.Update();
+        Render();
     }
     private void FixedUpdate() {
         stateManager.FixedUpdate();
@@ -50,11 +51,6 @@ public class RangedZombie : Monster
     {
         _aimWeapon.HandleShooting();
     }
-    protected override void Dead()
-    {
-        ChangeState(State.Death);
-    }
-
     public override void ChangeState(State state)
     {
         switch (state)

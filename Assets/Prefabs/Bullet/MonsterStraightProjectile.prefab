@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5593949945897733459}
   - component: {fileID: 6193044655314428755}
   - component: {fileID: -3570970906940576190}
+  - component: {fileID: 2933973124333344890}
   m_Layer: 0
   m_Name: MonsterStraightProjectile
   m_TagString: EnemyBullet
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 0.04057025, b: 0, a: 1}
+  m_Sprite: {fileID: 1210672155, guid: 618ab1f174c510149bc0f9014838b324, type: 3}
+  m_Color: {r: 0.7509433, g: 0.029448759, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,3 +135,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 8
+--- !u!95 &2933973124333344890
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531817930954284894}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0675e904eecc84a4c99f1643ae498a61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
