@@ -38,7 +38,6 @@ public static class Loader
     {
         if(_loadingAsyncOperation != null)
         {
-            Debug.Log(_loadingAsyncOperation.progress);
             return _loadingAsyncOperation.progress;
         }
         return 1;

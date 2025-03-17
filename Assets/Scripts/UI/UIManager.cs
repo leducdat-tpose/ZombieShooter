@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -13,10 +15,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _inventoryPanel;
     [SerializeField]
+    private GameObject _gameOverPanel;
+    [SerializeField]
     private Slider _playerHPSlider;
     [Header("Button")]
     [SerializeField]
     private Button _inventoryBtn;
+    [SerializeField]
+    private Button _mainMenuBtn;
     private GameController _gameController;
     private void OnPlayerDataChanged(Player player)
     {
@@ -30,6 +36,7 @@ public class UIManager : MonoBehaviour
         InitialiseTopPanel();
         InitialiseBottomPanel();
         InitialiseInventory(_gameController);
+        InitialiseGameOverPanel();
     }
     private void InitialiseTopPanel()
     {
@@ -42,6 +49,14 @@ public class UIManager : MonoBehaviour
     private void InitialiseBottomPanel()
     {
         if(_bottomPanel == null) return;
+    }
+    private void InitialiseGameOverPanel()
+    {
+        if(_gameOverPanel == null) return;
+        _gameOverPanel.SetActive(false);
+        _mainMenuBtn.onClick.AddListener(() => {
+            SceneManager.LoadScene(Loader.SceneType.MainMenuScene.ToString());
+        });
     }
     private void InitialiseInventory(GameController gameController)
     {
@@ -65,5 +80,10 @@ public class UIManager : MonoBehaviour
                 _gameController.UnSelectItem();
             }
         }
+    }
+    public void DisplayGameOver(string text)
+    {
+        _gameOverPanel.SetActive(true);
+        _gameOverPanel.transform.Find("GameOverText").GetComponent<TextMeshProUGUI>().text = text;
     }
 }

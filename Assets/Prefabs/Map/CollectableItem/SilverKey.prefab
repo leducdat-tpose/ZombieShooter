@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: e885e0c3912ee0f47ad79dfd59118b20, type: 2}
     - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_Name
-      value: CollectableItem (1) Variant
+      value: SilverKey
       objectReference: {fileID: 0}
     - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.x

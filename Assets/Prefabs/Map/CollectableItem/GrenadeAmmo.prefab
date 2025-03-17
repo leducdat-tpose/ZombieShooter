@@ -14,7 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 444466f5ff396034f8c70f887c1c1b28, type: 2}
     - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_Name
-      value: CollectableItem (1) Variant
+      value: GrenadeAmmo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.x

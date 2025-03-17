@@ -43,6 +43,7 @@ public class AttackStateZombie : BaseState<Monster>
     }
     private IEnumerator CanAttackCoroutine()
     {
+        _lastAttackTime = Time.time;
         _canAttack = false;
         yield return new WaitForSeconds(0.5f);
         _canAttack = true;

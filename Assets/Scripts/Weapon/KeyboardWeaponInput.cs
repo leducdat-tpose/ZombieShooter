@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public static class KeyboardWeaponInput
 {
@@ -35,7 +36,11 @@ public static class KeyboardWeaponInput
     }
     public static bool IsPointerOverUI()
     {
-        if(EventSystem.current != null) return EventSystem.current.IsPointerOverGameObject();
-        return false;
+        if (EventSystem.current == null) return false;
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Any(result => result.gameObject.layer == LayerMask.NameToLayer("UI"));
     }
 }

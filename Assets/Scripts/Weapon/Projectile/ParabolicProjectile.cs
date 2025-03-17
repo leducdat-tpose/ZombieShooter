@@ -23,9 +23,10 @@ public class ParabolicProjectile : Projectile
     private void Awake() {
         animator = GetComponent<Animator>();
     }
-    public override void Initialise(float damage, Vector2 direction)
+    public override void Initialise(float damage, Vector2 direction, WeaponData.SpecialAbility ability = WeaponData.SpecialAbility.None)
     {
         animator.Play("Default");
+        this.ability = ability;
         _moveSpeed = _maxMoveSpeed;
         _startPosition = transform.position;
         this.damage = damage;

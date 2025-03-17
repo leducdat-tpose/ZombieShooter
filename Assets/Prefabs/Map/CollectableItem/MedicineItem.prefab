@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &557964004554237030
+--- !u!1001 &4819040174674131687
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,24 +9,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2731656811067254979, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
-      propertyPath: _amount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 2731656811067254979, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: _itemData
       value: 
-      objectReference: {fileID: 11400000, guid: f2d00c06a67465349838355abf6a18d1, type: 2}
+      objectReference: {fileID: 11400000, guid: e5bde23589f26b34890cf9e9ad3e51e2, type: 2}
     - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_Name
-      value: CollectableItem Variant
+      value: MedicineItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653081144794868599, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9091697
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5370042
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6931327702859143322, guid: fa5ec8d3c64587042adb02b98dcca3a1, type: 3}
       propertyPath: m_LocalPosition.z

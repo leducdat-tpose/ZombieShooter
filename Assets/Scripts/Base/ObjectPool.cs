@@ -17,7 +17,6 @@ public class ObjectPool : MonoBehaviour
             {
                 GameObject poolObj = new GameObject("ObjectPool");
                 _instance = poolObj.AddComponent<ObjectPool>();
-                DontDestroyOnLoad(poolObj);
             }
             return _instance;
         }
@@ -34,7 +33,6 @@ public class ObjectPool : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
     public void CreatePool(GameObject prefab, int initialAmount)
@@ -128,7 +126,7 @@ public class PooledObject : MonoBehaviour
 {
     [HideInInspector]
     public ObjectPool Pool;
-    public float LifeTime = 10;
+    public float LifeTime = -1;
     
     private float _spawnTime;
     

@@ -35,6 +35,6 @@ public class DeathStateZombie : BaseState<Monster>
     private IEnumerator RemainAfterDeath()
     {
         yield return new WaitForSeconds(2.0f);
-        owner.gameObject.SetActive(false);
+        owner.GetComponent<PooledObject>().ReturnToPool();
     }
 }

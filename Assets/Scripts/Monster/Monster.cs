@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using UnityEngine.Video;
+using System;
 
 
-public abstract class Monster : MonoBehaviour, IDamageable
+public abstract class Monster : MonoBehaviour, IDamageable, IPoolable
 {
     [SerializeField]
     protected MonsterData monsterData;
     public MonsterData MonsterData => monsterData; 
     protected float currentHealth;
     protected Transform player;
+    public Action OnMonsterDeath;
     public Transform TargetTransform => player;
+    protected CircleCollider2D circleCollider;
     protected Rigidbody2D rigid;
     public Rigidbody2D Rigid => rigid;
     protected SpriteRenderer spriteRender;
-    public SpriteRenderer Renderer => spriteRender;
     protected Animator animator;
-    public Animator Animator => animator;
     protected int currentAnimation;
     protected StateManager<Monster> stateManager;
     public enum State{
@@ -32,6 +33,7 @@ public abstract class Monster : MonoBehaviour, IDamageable
         rigid = GetComponent<Rigidbody2D>();
         Seeker = GetComponent<Seeker>();
         spriteRender = GetComponent<SpriteRenderer>();
+        circleCollider = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
     }
     public virtual void Initialise(MonsterData monsterData, Transform playerTransform)
@@ -63,7 +65,8 @@ public abstract class Monster : MonoBehaviour, IDamageable
     }
     protected virtual void Dead()
     {
-        GetComponent<CircleCollider2D>().enabled = false;
+        circleCollider.enabled = false;
+        OnMonsterDeath?.Invoke();
         ChangeState(State.Death);
     }
     public abstract void Attack();
@@ -79,5 +82,12 @@ public abstract class Monster : MonoBehaviour, IDamageable
         animator.CrossFade(currentAnimation, 0.1f, 0);
     }
     public virtual float GetAttackRange() => monsterData.AttackRange;
-    
+
+    public void OnObjectSpawn()
+    {
+        if(stateManager == null) return;
+        currentHealth = monsterData.MaxHealth;
+        ChangeState(State.Idle);
+        circleCollider.enabled = true;
+    }
 }

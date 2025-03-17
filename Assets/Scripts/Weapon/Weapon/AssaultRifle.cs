@@ -19,7 +19,7 @@ public class AssaultRifle : Weapon
         {
             // Vector3 mousePos = KeyboardWeaponInput.GetMousePosition(Camera.main);
             Vector2 direction = (position - transform.position).normalized;
-            component.Initialise(weaponData.Damage, direction);
+            component.Initialise(weaponData.Damage, direction, weaponData.Ability);
         }
     }
 

@@ -9,11 +9,12 @@ public class StraightProjectile : Projectile
     private void Awake() {
         animator = GetComponent<Animator>();
     }
-    public override void Initialise(float damage, Vector2 direction)
+    public override void Initialise(float damage, Vector2 direction, WeaponData.SpecialAbility ability = WeaponData.SpecialAbility.None)
     {
         animator.Play("Default");
         this.damage = damage;
         this.direction = direction;
+        this.ability = ability;
     }
 
     protected override void Move()
@@ -36,7 +37,7 @@ public class StraightProjectile : Projectile
             if(other.TryGetComponent<Player>(out Player player))
             {
                 player.TakeDamage(damage);
-                
+                if(ability == WeaponData.SpecialAbility.Stun) player.Stun(1f);
             }
         }
         if(other.CompareTag(Constant.StaticObject))

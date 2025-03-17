@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6193044655314428755}
   - component: {fileID: -3570970906940576190}
   - component: {fileID: 2933973124333344890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MonsterStraightProjectile
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}

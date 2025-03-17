@@ -48,6 +48,7 @@ public class Player : MonoBehaviour, IDamageable
     }
     public void Stun(float duration)
     {
+        if(IsStunned) return;
         StartCoroutine(StunCoroutine(duration));
     }
     private IEnumerator StunCoroutine(float duration)
