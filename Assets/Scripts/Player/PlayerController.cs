@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Render()
     {
+        _spriteRenderer.color = _playerStatus.IsInvincible ? Color.white.WithAlpha(0.5f) : Color.white;
         int newAnimation = Constant.IdleAnimation;
         if(_rigid.velocity != Vector2.zero) newAnimation = Constant.WalkAnimation;
         if(_playerStatus.IsDead) newAnimation = Constant.DeathAnimation;

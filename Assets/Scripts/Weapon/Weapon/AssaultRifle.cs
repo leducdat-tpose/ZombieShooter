@@ -31,8 +31,7 @@ public class AssaultRifle : Weapon
             return;
         }
         _isShooting = KeyboardWeaponInput.PrimaryIsFiring();
-        if(KeyboardWeaponInput.IsReloading() || currentAmmo == 0) Reload();
-        if(_isShooting && Time.time > nextFireTime && !isReloading)
+        if(_isShooting && Time.time > nextFireTime && !isReloading && currentAmmo != 0)
         {
             Fire(position, noneReload);
         }
@@ -46,16 +45,18 @@ public class AssaultRifle : Weapon
         currentAmmo = weaponData.AmmoCapacityPerMagazine;
     }
 
-    public override void Reload()
+    public override void Reload(int amount)
     {
         if(isReloading) return;
-        StartCoroutine(ReloadCoroutine());
+        if(amount == 0) return;
+        StartCoroutine(ReloadCoroutine(amount));
     }
-    private IEnumerator ReloadCoroutine()
+    private IEnumerator ReloadCoroutine(int amount)
     {
         isReloading = true;
         yield return new WaitForSeconds(weaponData.ReloadDuration);
-        currentAmmo = weaponData.AmmoCapacityPerMagazine;
+        currentAmmo = amount + currentAmmo;
+        if(currentAmmo > weaponData.AmmoCapacityPerMagazine) currentAmmo = weaponData.AmmoCapacityPerMagazine;
         isReloading = false;
     }
 }

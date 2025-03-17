@@ -15,9 +15,11 @@ MonoBehaviour:
   ItemName: Grenade
   Type: 0
   Sprite: {fileID: 0}
+  CanPlayerUse: 0
   WeaponPrefab: {fileID: 7711735186002192090, guid: a2d236d42dd27a04189b91fcc0cdbdde, type: 3}
   ProjectilePrefab: {fileID: 4905291105151629801, guid: de33332f6702627439b90759a60d91ab, type: 3}
   Damage: 10
   FireRate: 0.5
   ReloadDuration: 2
   AmmoCapacityPerMagazine: 1
+  AmmoType: {fileID: 11400000, guid: 444466f5ff396034f8c70f887c1c1b28, type: 2}

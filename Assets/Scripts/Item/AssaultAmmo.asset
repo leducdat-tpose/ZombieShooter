@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a92e5cdf6faeb42985ab461396994f, type: 3}
-  m_Name: MedicineItemData
+  m_Script: {fileID: 11500000, guid: 809b15e6813bb1e4d8cd1133a84e30d4, type: 3}
+  m_Name: AssaultAmmo
   m_EditorClassIdentifier: 
-  ItemName: Medicine
-  Type: 2
-  Sprite: {fileID: 856149904, guid: 6b2c7d6dc1e6022428d24ca618b2236e, type: 3}
-  CanPlayerUse: 1
-  HealthAmount: 5
+  ItemName: AssaultAmmo
+  Type: 0
+  Sprite: {fileID: 2015139435, guid: 6b2c7d6dc1e6022428d24ca618b2236e, type: 3}
+  CanPlayerUse: 0

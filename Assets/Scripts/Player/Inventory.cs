@@ -55,19 +55,27 @@ public class Inventory
     {
         if(!HaveThisItem(item)) return 0;
         int taken = 0;
+        Debug.Log($"Amount in inventory: {_inventory[item]}");
         if(_inventory[item] < amount)
         {
+            Debug.Log($"First");
             taken = _inventory[item];
             _inventory[item] = 0;
         }
         else
         {
+            Debug.Log($"Second");
             _inventory[item] -= amount;
             taken = amount;
         }
+        Debug.Log($"Amount in inventory: {_inventory[item]}");
         if(_inventory[item] == 0) _inventory.Remove(item);
         return taken;
     }
-    public bool HaveThisItem(ItemData item) => _inventory.ContainsKey(item);
+    public bool HaveThisItem(ItemData item)
+    {
+        if(_inventory.ContainsKey(item)) return true;
+        else return false;
+    }
     public Dictionary<ItemData, int> GetData() => _inventory;
 }

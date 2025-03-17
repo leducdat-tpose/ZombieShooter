@@ -47,10 +47,30 @@ public class PlayerAimWeapon : MonoBehaviour
         if(_primaryWeapon != null && _primaryWeapon.HaveWeaponData())
         {
             _primaryWeapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+            if((_primaryWeapon.GetCurrentAmmo() == 0 || KeyboardWeaponInput.IsReloading()) && !_primaryWeapon.IsReloading())
+            {
+                if(_player.Inventory.HaveThisItem(_primaryWeapon.GetAmmoType()))
+                {
+                    int amountAmmo = _primaryWeapon.GetMaxAmmo() - _primaryWeapon.GetCurrentAmmo();
+                    Debug.Log($"Amount need to reload: {amountAmmo}");
+                    int taken = _player.Inventory.GetAmountItem(_primaryWeapon.GetAmmoType(), amountAmmo);
+                    Debug.Log($"Amount have taken: {taken}");
+                    _primaryWeapon.Reload(taken);
+                }
+            }
         }
-        if(_secondWeapon != null && _primaryWeapon.HaveWeaponData())
+        if(_secondWeapon != null && _secondWeapon.HaveWeaponData())
         {
             _secondWeapon.HandleInput(KeyboardWeaponInput.GetMousePosition(Camera.main));
+            if(_secondWeapon.GetCurrentAmmo() == 0 && !_secondWeapon.IsReloading())
+            {
+                if(_player.Inventory.HaveThisItem(_secondWeapon.GetAmmoType()))
+                {
+                    int amountAmmo = _secondWeapon.GetMaxAmmo() - _secondWeapon.GetCurrentAmmo();
+                    int taken = _player.Inventory.GetAmountItem(_secondWeapon.GetAmmoType(), amountAmmo);
+                    _secondWeapon.Reload(taken);
+                }
+            }
         }
     }
 }

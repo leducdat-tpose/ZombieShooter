@@ -10,4 +10,5 @@ public class WeaponData : ItemData
     public float FireRate;
     public float ReloadDuration;
     public int AmmoCapacityPerMagazine = 10;
+    public ItemData AmmoType;
 }
